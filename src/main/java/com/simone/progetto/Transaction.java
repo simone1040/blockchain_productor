@@ -1,19 +1,26 @@
 package com.simone.progetto;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Transaction implements Serializable{
+public class Transaction implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer id_client;
 	private Product product;
 	private Integer quantity;
 	private String timestamp;
 	
-	public Transaction(Integer id_client, Product product, Integer quantity, String timestamp) {
+	public Transaction(Integer id_client, Product product, Integer quantity) {
 		super();
 		this.id_client = id_client;
 		this.product = product;
 		this.quantity = quantity;
-		this.timestamp = timestamp;
+		this.timestamp = this.createTimestamp();
+	}
+
+	public String createTimestamp(){
+		return  this.id_client + new SimpleDateFormat("dd/MM/yyyy HH-mm-ss").format(new Date());
 	}
 
 	public Integer getId_client() {
