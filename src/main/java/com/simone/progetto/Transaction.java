@@ -19,7 +19,7 @@ public class Transaction implements Serializable {
 		this.timestamp = this.createTimestamp();
 	}
 
-	public String createTimestamp(){
+	private String createTimestamp(){
 		return  this.id_client + new SimpleDateFormat("dd/MM/yyyy HH-mm-ss").format(new Date());
 	}
 

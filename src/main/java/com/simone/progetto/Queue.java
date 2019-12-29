@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-@Service
-
-public class Queue{
+@Service("queue")
+public class Queue implements Communicator{
 	private final RabbitTemplate rabbitTemplate;
 	private static final Logger log = LoggerFactory.getLogger(Queue.class);
 
@@ -19,10 +18,17 @@ public class Queue{
 		this.rabbitTemplate = template;
 	}
 
-	public void sendMessage(Transaction transaction) {
-		rabbitTemplate.convertAndSend(RabbitMQConfiguration.EXCHANGE_NAME,
-				RabbitMQConfiguration.ROUTING_KEY,
-				transaction);
-		log.info("message sent");
+	public boolean sendMessage(Transaction transaction) {
+		boolean toRet = false;
+		try{
+			rabbitTemplate.convertAndSend(RabbitMQConfiguration.EXCHANGE_NAME,
+					RabbitMQConfiguration.ROUTING_KEY,
+					transaction);
+			toRet = true;
+		}
+		catch (Exception e){
+			log.error("Exception --> " + e);
+		}
+		return toRet;
 	}
 }
