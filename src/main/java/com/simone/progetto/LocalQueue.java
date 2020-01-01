@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 public class LocalQueue implements Communicator {
     @Autowired
     private Queue queue;
+    @Autowired
+    TransactionRules transactionRules;
     private static final Logger log = LoggerFactory.getLogger(LocalQueue.class);
 
     @Override
     public boolean sendMessage(Transaction transaction) {
         boolean toRet = false;
-        if(transaction.getId_client() != 0 &&
-        transaction.getQuantity() != 0 &&
-        !transaction.getProduct().getName().equals("")){
+        if(transactionRules.canSend(transaction)){
             toRet = queue.sendMessage(transaction);
         }
         if(toRet){
