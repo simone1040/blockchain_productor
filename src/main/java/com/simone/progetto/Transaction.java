@@ -1,7 +1,6 @@
 package com.simone.progetto;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transaction implements Serializable {
@@ -9,7 +8,7 @@ public class Transaction implements Serializable {
 	private Integer id_client;
 	private Product product;
 	private Integer quantity;
-	private String timestamp;
+	private long timestamp;
 	
 	public Transaction(Integer id_client, Product product, Integer quantity) {
 		super();
@@ -19,8 +18,8 @@ public class Transaction implements Serializable {
 		this.timestamp = this.createTimestamp();
 	}
 
-	private String createTimestamp(){
-		return  new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+	private long createTimestamp(){
+		return  new Date().getTime();
 	}
 
 	public Integer getId_client() {
@@ -47,11 +46,11 @@ public class Transaction implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public String getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
 
