@@ -3,9 +3,9 @@ package com.simone.progetto;
 import com.simone.progetto.bean.RabbitMQConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service("queue")
@@ -17,13 +17,13 @@ public class Queue implements Communicator{
 	public Queue(final RabbitTemplate template) {
 		this.rabbitTemplate = template;
 	}
+	@Autowired private FanoutExchange fanoutExchange;
 
 	public boolean sendMessage(Transaction transaction) {
 		boolean toRet = false;
 		try{
-			rabbitTemplate.convertAndSend(RabbitMQConfiguration.EXCHANGE_NAME,
-					RabbitMQConfiguration.ROUTING_KEY,
-					transaction);
+			rabbitTemplate.convertAndSend(fanoutExchange.getName(),
+					"",transaction);
 			toRet = true;
 		}
 		catch (Exception e){

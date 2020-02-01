@@ -1,6 +1,7 @@
 package com.simone.progetto;
 
 
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +20,7 @@ public class SenderProgettoApplication {
 
 	@Qualifier("local_queue")
 	@Autowired private Communicator communicator;
+
 	public void start(String[] args){
 		Product product = new Product("Pasta",0.5);
 		Transaction transaction = new Transaction(1,product,2);

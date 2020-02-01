@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class LocalQueue implements Communicator {
     @Autowired private Queue queue;
     @Autowired TransactionRules transactionRules;
+
     private static final Logger log = LoggerFactory.getLogger(LocalQueue.class);
 
     @Override

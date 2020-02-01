@@ -1,33 +1,28 @@
 package com.simone.progetto.bean;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-    public static final String EXCHANGE_NAME = "tips_tx";
-    public static final String DEFAULT_PARSING_QUEUE = "default_parser_q";
-    public static final String ROUTING_KEY = "tips";
+    private static final String FANOUT_EXCHANGE = "FanoutExchange";
+    public static final String TRANSACTION_QUEUE = "default_transaction_q";
 
     @Bean
-    public TopicExchange tipsExchange() {
-        return new TopicExchange(EXCHANGE_NAME);
+    public FanoutExchange fanout() {
+        return new FanoutExchange(FANOUT_EXCHANGE);
     }
 
     @Bean
-    public Queue defaultParsingQueue() {
-        return new Queue(DEFAULT_PARSING_QUEUE);
+    public Binding TransactionBinding(FanoutExchange fanout, Queue TransactionQueue) {
+        return BindingBuilder.bind(TransactionQueue).to(fanout);
     }
 
+
     @Bean
-    public Binding queueToExchangeBinding() {
-        return BindingBuilder.bind(defaultParsingQueue()).to(tipsExchange()).with(ROUTING_KEY);
+    public Queue TransactionQueue() {
+        return new Queue(TRANSACTION_QUEUE);
     }
+
 }
