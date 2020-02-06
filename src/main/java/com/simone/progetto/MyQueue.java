@@ -1,6 +1,5 @@
 package com.simone.progetto;
 
-import com.simone.progetto.bean.RabbitMQConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.FanoutExchange;
@@ -9,25 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("queue")
-public class Queue implements Communicator{
+public class MyQueue implements Communicator{
 	private final RabbitTemplate rabbitTemplate;
-	private static final Logger log = LoggerFactory.getLogger(Queue.class);
+	private static final Logger log = LoggerFactory.getLogger(MyQueue.class);
+	@Autowired TransactionRules transactionRules;
+	@Autowired private FanoutExchange fanoutExchange;
 
 	@Autowired
-	public Queue(final RabbitTemplate template) {
+	public MyQueue(final RabbitTemplate template) {
 		this.rabbitTemplate = template;
 	}
-	@Autowired private FanoutExchange fanoutExchange;
 
 	public boolean sendMessage(Transaction transaction) {
 		boolean toRet = false;
-		try{
-			rabbitTemplate.convertAndSend(fanoutExchange.getName(),
-					"",transaction);
-			toRet = true;
-		}
-		catch (Exception e){
-			log.error("Exception --> " + e);
+		if(transactionRules.canSend(transaction)) {
+			try {
+				rabbitTemplate.convertAndSend(fanoutExchange.getName(),
+						"", transaction);
+				toRet = true;
+			} catch (Exception e) {
+				log.error("Exception --> " + e);
+			}
 		}
 		return toRet;
 	}
