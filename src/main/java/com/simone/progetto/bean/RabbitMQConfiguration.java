@@ -1,5 +1,6 @@
 package com.simone.progetto.bean;
 
+import com.simone.progetto.PollingSender;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,5 +12,4 @@ public class RabbitMQConfiguration {
     public FanoutExchange fanout() {
         return new FanoutExchange(FANOUT_EXCHANGE);
     }
-
 }
