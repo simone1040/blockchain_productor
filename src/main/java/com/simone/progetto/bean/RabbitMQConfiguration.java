@@ -1,6 +1,5 @@
 package com.simone.progetto.bean;
 
-import com.simone.progetto.PollingSender;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -25,8 +25,8 @@ public class SenderProgettoApplication {
 			}
 			else if(args[0].compareTo("-single") == 0){
 				ApplicationContext applicationContext = SpringApplication.run(SenderProgettoApplication.class, args);
-				SenderProgettoApplication senderProgettoApplication = applicationContext.getBean(SenderProgettoApplication.class);
-				senderProgettoApplication.start(args);
+				SingleSender singleSender = applicationContext.getBean(SingleSender.class);
+				singleSender.sendTransaction();
 				((ConfigurableApplicationContext) applicationContext).close();
 			}
 
@@ -40,23 +40,7 @@ public class SenderProgettoApplication {
 
 
 	public void start(String[] args){
-		Product product = new Product("Pasta",0.5);
-		Transaction transaction = new Transaction(1,product,2);
 
-		Product product1 = new Product("",0.5);
-		Transaction transaction1 = new Transaction(1,product1,2);
-		if(communicator.sendMessage(transaction)){
-			log.info("Transaction send!");
-		}
-		else{
-			log.info("Transaction blocked!");
-		}
-		if(communicator.sendMessage(transaction1)){
-			log.info("Transaction send!");
-		}
-		else{
-			log.info("Transaction blocked!");
-		}
 
 	}
 }
