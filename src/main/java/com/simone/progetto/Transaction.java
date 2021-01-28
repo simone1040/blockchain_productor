@@ -1,8 +1,15 @@
 package com.simone.progetto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
+@ToString
 public class Transaction implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id_client;
@@ -21,46 +28,4 @@ public class Transaction implements Serializable {
 	private long createTimestamp(){
 		return  new Date().getTime();
 	}
-
-	public Integer getId_client() {
-		return id_client;
-	}
-
-	public void setId_client(Integer id_client) {
-		this.id_client = id_client;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	@Override
-	public String toString() {
-		return "Transaction [id_client=" + id_client + ", product=" + product + ", quantity=" + quantity
-				+ ", timestamp=" + timestamp + "]";
-	}
-	
-	
-	
-	
 }

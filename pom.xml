@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.simone</groupId>
 	<artifactId>Sender_progetto</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Sender_progetto</name>
 	<description>Sender del progetto spring-rabbitmq</description>
 
@@ -40,6 +40,12 @@
 			<artifactId>spring-rabbit-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -49,6 +55,16 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.conf</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
-
 </project>

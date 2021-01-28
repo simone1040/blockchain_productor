@@ -11,7 +11,7 @@ public class PollingSender {
     @Autowired private Communicator communicator;
     private static final Logger log = LoggerFactory.getLogger(PollingSender.class);
 
-    @Scheduled(fixedDelay = 3000, initialDelay = 500)
+    @Scheduled(fixedDelay = 2000, initialDelay = 500)
     public void send() {
         Product product = new Product("Pasta",0.5);
         Transaction transaction = new Transaction(1,product,2);
