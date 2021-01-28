@@ -47,7 +47,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -58,6 +57,9 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.conf</include>
+				</includes>
 			</resource>
 			<resource>
 				<directory>src/main/java</directory>

@@ -12,6 +12,7 @@ public class SenderProgettoApplication {
 	@Qualifier("queue")
 	public static void main(String[] args) {
 		if (args.length > 0) {
+			SenderConfiguration.Startup();
 			if (args[0].compareTo("-polling") == 0) {
 				SpringApplication.run(SenderProgettoApplication.class, args);
 			}
