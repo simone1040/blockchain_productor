@@ -41,4 +41,4 @@ In order to run this exaple project:
   * for running sender application you must have started Receiver_rabbitMQ.
  
 # SECOND MODE
- * **java -jar target/#NAME_JAR.jar --[single/polling]
+ * **java -jar target/#NAME_JAR.jar --[single/polling]**
